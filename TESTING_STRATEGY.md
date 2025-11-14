@@ -1,4 +1,4 @@
-# Comprehensive Testing Strategy for Code-Chatbot
+# Comprehensive Testing Strategy for codechat
 
 ## Table of Contents
 1. [Overview](#overview)
@@ -14,7 +14,7 @@
 
 ## Overview
 
-This document outlines a comprehensive testing strategy for the code-chatbot multi-agent AI system. The application uses:
+This document outlines a comprehensive testing strategy for the codechat multi-agent AI system. The application uses:
 - **Next.js 15** with App Router
 - **Supabase** for authentication and PostgreSQL database
 - **Google Gemini AI** with multi-agent architecture

@@ -30,7 +30,7 @@ This document outlines the development workflow, database management, and deploy
 #### **Step 1: Clone Repository**
 ```bash
 git clone <repo-url>
-cd code-chatbot
+cd codechat
 pnpm install
 ```
 

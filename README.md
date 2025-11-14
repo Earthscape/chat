@@ -1,6 +1,6 @@
 # AI Code Chatbot with Admin Dashboard
 
-A powerful, production-ready AI chatbot application with comprehensive admin controls, usage analytics, and multi-agent architecture. Built for teams to manage and deploy conversational AI with GitHub repository integration.
+A flexible Next.js AI chatbot application with comprehensive admin controls, usage analytics, and multi-agent architecture. Built for teams to manage and deploy conversational AI with GitHub repository integration, Supabase storage and Vercel hosting. Also see our [codechat-vectors](https://github.com/modelearth/codechat-vectors) to create Pinecode RAGs from repos.
 
 ## Tech Stack
 
@@ -49,7 +49,7 @@ A powerful, production-ready AI chatbot application with comprehensive admin con
 #### 1. Clone Repository
 ```bash
 git clone <repo-url>
-cd code-chatbot
+cd codechat
 pnpm install
 # or
 npm install
