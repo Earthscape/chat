@@ -1,6 +1,6 @@
 # AI Code Chatbot with Admin Dashboard
 
-A flexible Next.js AI chatbot application with comprehensive admin controls, usage analytics, and multi-agent architecture. Built for teams to manage and deploy conversational AI with GitHub repository integration, Supabase storage and Vercel hosting. Also see our [codechat-vectors](https://github.com/modelearth/codechat-vectors) to create Pinecode RAGs from repos.
+A flexible Next.js AI chatbot application with comprehensive admin controls, usage analytics, and multi-agent architecture. Built for teams to manage and deploy conversational AI with GitHub repository integration, Supabase storage and Vercel hosting. Also see our [codechat-vectors](https://github.com/modelearth/codechat-vectors) to create Pinecone RAGs from repos.
 
 ## Tech Stack
 
