@@ -100,7 +100,13 @@ jobs:
       # Export Supabase credentials using -o env format (recommended by docs)
       - name: Run database migrations
         run: |
-          eval "$(supabase status -o env)"
+          set -a  # Auto-export all variables
+          eval "$(supabase status -o env 2>&1)"
+          set +a
+          echo "Checking if vars are set:"
+          echo "API_URL=$API_URL"
+          echo "Has ANON_KEY: $([ -n \"$ANON_KEY\" ] && echo yes || echo no)"
+          echo "Has SERVICE_ROLE_KEY: $([ -n \"$SERVICE_ROLE_KEY\" ] && echo yes || echo no)"
           export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
           export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
           export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
@@ -109,7 +115,9 @@ jobs:
 
       - name: Run integration tests
         run: |
-          eval "$(supabase status -o env)"
+          set -a  # Auto-export all variables
+          eval "$(supabase status -o env 2>&1)"
+          set +a
           export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
           export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
           export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
@@ -168,7 +176,9 @@ jobs:
       # Export Supabase credentials using -o env format (recommended by docs)
       - name: Run database migrations
         run: |
-          eval "$(supabase status -o env)"
+          set -a
+          eval "$(supabase status -o env 2>&1)"
+          set +a
           export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
           export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
           export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
@@ -177,7 +187,9 @@ jobs:
 
       - name: Build application
         run: |
-          eval "$(supabase status -o env)"
+          set -a
+          eval "$(supabase status -o env 2>&1)"
+          set +a
           export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
           export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
           export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
@@ -186,7 +198,9 @@ jobs:
 
       - name: Run E2E tests
         run: |
-          eval "$(supabase status -o env)"
+          set -a
+          eval "$(supabase status -o env 2>&1)"
+          set +a
           export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
           export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
           export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
