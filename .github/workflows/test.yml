@@ -97,29 +97,24 @@ jobs:
       - name: Start Supabase
         run: supabase start
 
-      - name: Get Supabase credentials
-        id: supabase
-        run: |
-          echo "url=$(supabase status --output json | jq -r '.API_URL')" >> $GITHUB_OUTPUT
-          echo "anon_key=$(supabase status --output json | jq -r '.ANON_KEY')" >> $GITHUB_OUTPUT
-          echo "service_role_key=$(supabase status --output json | jq -r '.SERVICE_ROLE_KEY')" >> $GITHUB_OUTPUT
-          echo "db_url=$(supabase status --output json | jq -r '.DB_URL')" >> $GITHUB_OUTPUT
-
+      # Export Supabase credentials using -o env format (recommended by docs)
       - name: Run database migrations
-        env:
-          POSTGRES_URL: ${{ steps.supabase.outputs.db_url }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_role_key }}
-        run: pnpm db:migrate
+        run: |
+          eval "$(supabase status -o env)"
+          export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+          export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
+          export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
+          export SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY"
+          pnpm db:migrate
 
       - name: Run integration tests
-        env:
-          POSTGRES_URL: ${{ steps.supabase.outputs.db_url }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_role_key }}
-        run: pnpm test:integration
+        run: |
+          eval "$(supabase status -o env)"
+          export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+          export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
+          export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
+          export SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY"
+          pnpm test:integration
 
       - name: Stop Supabase
         if: always()
@@ -170,38 +165,34 @@ jobs:
       - name: Start Supabase
         run: supabase start
 
-      - name: Get Supabase credentials
-        id: supabase
-        run: |
-          echo "url=$(supabase status --output json | jq -r '.API_URL')" >> $GITHUB_OUTPUT
-          echo "anon_key=$(supabase status --output json | jq -r '.ANON_KEY')" >> $GITHUB_OUTPUT
-          echo "service_role_key=$(supabase status --output json | jq -r '.SERVICE_ROLE_KEY')" >> $GITHUB_OUTPUT
-          echo "db_url=$(supabase status --output json | jq -r '.DB_URL')" >> $GITHUB_OUTPUT
-
+      # Export Supabase credentials using -o env format (recommended by docs)
       - name: Run database migrations
-        env:
-          POSTGRES_URL: ${{ steps.supabase.outputs.db_url }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_role_key }}
-        run: pnpm db:migrate
+        run: |
+          eval "$(supabase status -o env)"
+          export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+          export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
+          export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
+          export SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY"
+          pnpm db:migrate
 
       - name: Build application
-        env:
-          POSTGRES_URL: ${{ steps.supabase.outputs.db_url }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_role_key }}
-        run: pnpm build
+        run: |
+          eval "$(supabase status -o env)"
+          export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+          export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
+          export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
+          export SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY"
+          pnpm build
 
       - name: Run E2E tests
-        env:
-          POSTGRES_URL: ${{ steps.supabase.outputs.db_url }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ steps.supabase.outputs.url }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.supabase.outputs.anon_key }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.supabase.outputs.service_role_key }}
-          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
-        run: pnpm test:e2e
+        run: |
+          eval "$(supabase status -o env)"
+          export POSTGRES_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+          export NEXT_PUBLIC_SUPABASE_URL="$API_URL"
+          export NEXT_PUBLIC_SUPABASE_ANON_KEY="$ANON_KEY"
+          export SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY"
+          export PLAYWRIGHT_TEST_BASE_URL="http://localhost:3000"
+          pnpm test:e2e
 
       - name: Stop Supabase
         if: always()
