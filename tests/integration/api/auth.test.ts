@@ -44,7 +44,9 @@ async function isSupabaseAvailable(): Promise<boolean> {
 
 describe("Authentication Integration Tests", () => {
   let testUserId: string | null = null;
-  const testEmail = `test-${Date.now()}@example.com`;
+  // Generate unique email per test invocation to avoid collisions
+  const generateTestEmail = () => `test-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`;
+  let testEmail: string;
   const testPassword = "TestPassword123!";
   let supabaseAvailable = false;
 
@@ -53,10 +55,15 @@ describe("Authentication Integration Tests", () => {
     if (!supabaseAvailable) {
       console.warn(
         "\n⚠️  Supabase is not available at localhost:54321\n" +
-          "   To run these tests, start Supabase with: npx supabase start\n" +
-          "   Tests will be skipped.\n"
+        "   To run these tests, start Supabase with: npx supabase start\n" +
+        "   Tests will be skipped.\n"
       );
     }
+  });
+
+  // Generate unique email for each test to avoid collisions
+  beforeEach(() => {
+    testEmail = generateTestEmail();
   });
 
   afterEach(async () => {
